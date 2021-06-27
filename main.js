@@ -1,120 +1,114 @@
 // Select the span in control button (The Start Game Button):
 document.querySelector(".control-buttons span").onclick = () => {
-    // Prompt window to ask for name:  
-    let yourName = prompt("Enter Your Name: ");
-    // Check if the prompt is empty: 
-    if (yourName == null || yourName == "") {
-        document.querySelector(".name span").innerHTML = "Unknown";
-    } else {
-        document.querySelector(".name span").innerHTML = yourName;
-    }
-    // Remove the splash screen:
-    document.querySelector(".control-buttons").remove();
+  // Prompt window to ask for name:
+  let yourName = prompt("Enter Your Name: ");
+  // Check if the prompt is empty:
+  if (yourName == null || yourName == "") {
+    document.querySelector(".name span").innerHTML = "Unknown";
+  } else {
+    document.querySelector(".name span").innerHTML = yourName;
+  }
+  // Remove the splash screen:
+  document.querySelector(".control-buttons").remove();
 
-
-// Set the cutDown counter : 
-let seconds = 22,
-    countDiv = document.getElementById('countdown'),
+  // Set the cutDown counter :
+  let seconds = 120,
+    countDiv = document.getElementById("countdown"),
     secondPass,
     countDown = setInterval(function () {
-
-        "use strict";
-        secondPass();
-        
+      "use strict";
+      secondPass();
     }, 1000);
 
-    secondPass = () => {    
-        "use strict";
+  secondPass = () => {
+    "use strict";
 
-        let minutes = Math.floor(seconds / 60),
-            remainSeconds = seconds % 60;
+    let minutes = Math.floor(seconds / 60),
+      remainSeconds = seconds % 60;
 
-        if (seconds <10) {
-            remainSeconds = '0' + remainSeconds;
-        }
-        
-        if (minutes < 10) {
-            minutes = '0' + minutes;
-        }
+    if (seconds < 10) {
+      remainSeconds = "0" + remainSeconds;
+    }
 
-        countDiv.innerHTML = minutes + ":" + remainSeconds;
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
 
-        if (seconds > 0) {
-            seconds -= 1;
+    countDiv.innerHTML = minutes + ":" + remainSeconds;
 
-        } else {
-            clearInterval(countDown);
-            countDiv.innerHTML = "Time Out";
-            
-            // Block the clicking :
-            blocksContainer.classList.add('no-clicking');
-            
-            
-     
-            // Create overlay element :
-            let overlay = document.createElement("div");
+    if (seconds > 0) {
+      seconds -= 1;
+    } else {
+      clearInterval(countDown);
+      countDiv.innerHTML = "Time Out";
 
-            // Add class to overlay : 
-            overlay.className = 'popup-overlay';
+      // Block the clicking :
+      blocksContainer.classList.add("no-clicking");
 
-            // Append the overlay to the Body :
-            document.body.appendChild(overlay);
+      // Create overlay element :
+      let overlay = document.createElement("div");
 
-            // Create The popup :
-            let popupBox = document.createElement("div");
+      // Add class to overlay :
+      overlay.className = "popup-overlay";
 
-            // Add class to the Popup Box : 
-            popupBox.className = 'popup-box';
+      // Append the overlay to the Body :
+      document.body.appendChild(overlay);
 
-            let imgHeading = document.createElement("h3");
+      // Create The popup :
+      let popupBox = document.createElement("div");
 
-            // create text for Heading :
-            let imgText = "Time Over";
+      // Add class to the Popup Box :
+      popupBox.className = "popup-box";
 
-            // Append the text to the Heading :
-            imgHeading.append(imgText);
+      let imgHeading = document.createElement("h3");
 
-            // Append the Heading to the Popup box :
-            popupBox.appendChild(imgHeading);
+      // create text for Heading :
+      let imgText = "Time Over";
 
-            // Create the Image : 
-            let popupImage = document.createElement("img");
+      // Append the text to the Heading :
+      imgHeading.append(imgText);
 
-            // Set Image Source 'src' :
-            popupImage.src = "../Memory Game/imgs/hello.png";
+      // Append the Heading to the Popup box :
+      popupBox.appendChild(imgHeading);
 
-            // Add image to Popup Box : 
-            popupBox.appendChild(popupImage);
+      // Create the Image :
+      let popupImage = document.createElement("img");
 
-            // Append the popup box to the Body : 
-            document.body.appendChild(popupBox);
-            
-            //  Create The Close span ('X' mark) :
-            let closeButton = document.createElement("span");
+      // Set Image Source 'src' :
+      popupImage.src = "../Memory Game/imgs/hello.png";
 
-            // Create the close button text : 
-            let closeButtonText = document.createTextNode("X");
+      // Add image to Popup Box :
+      popupBox.appendChild(popupImage);
 
-            // Append text to close button :
-            closeButton.appendChild(closeButtonText);
+      // Append the popup box to the Body :
+      document.body.appendChild(popupBox);
 
-            // Add class to closeButton : 
-            closeButton.className = "close-button";
-            
-            // Add the close button to the Popup Box :
-            popupBox.appendChild(closeButton);
+      //  Create The Close span ('X' mark) :
+      let closeButton = document.createElement("span");
 
+      // Create the close button text :
+      let closeButtonText = document.createTextNode("X");
 
-            document.querySelector('.memory-game  .game-block.is-flipped').classList.remove('is-flipped');
-        }
-    };
+      // Append text to close button :
+      closeButton.appendChild(closeButtonText);
 
-}
+      // Add class to closeButton :
+      closeButton.className = "close-button";
 
-// Effection duration: 
+      // Add the close button to the Popup Box :
+      popupBox.appendChild(closeButton);
+
+      document
+        .querySelector(".memory-game  .game-block.is-flipped")
+        .classList.remove("is-flipped");
+    }
+  };
+};
+
+// Effection duration:
 let duration = 500;
 
-// Select blocks container: 
+// Select blocks container:
 let blocksContainer = document.querySelector(".memory-game");
 
 let blocks = Array.from(blocksContainer.children);
@@ -125,134 +119,123 @@ let orderRange = Array.from(Array(blocks.length).keys());
 
 shuffle(orderRange);
 
-// Add order css property to game blocks: 
+// Add order css property to game blocks:
 blocks.forEach((block, index) => {
-    // Add Css  Order Property : 
-    block.style.order = orderRange[index];
+  // Add Css  Order Property :
+  block.style.order = orderRange[index];
 
-    // Add Click Event :
-    block.addEventListener('click', () => {
-        // Trigger the Flip Block Function :
-        flipBlock(block);
-    });
+  // Add Click Event :
+  block.addEventListener("click", () => {
+    // Trigger the Flip Block Function :
+    flipBlock(block);
+  });
 });
 
 // Create Shuffle Function :
-function shuffle (array) {
-    // variables setting: 
-    let current = array.length,
-        temp,
-        random;
+function shuffle(array) {
+  // variables setting:
+  let current = array.length,
+    temp,
+    random;
 
-    while (current > 0) {
-        // Get random element: 
-        random = Math.floor(Math.random() * current);
+  while (current > 0) {
+    // Get random element:
+    random = Math.floor(Math.random() * current);
 
-        // Decrease the length by one:
-        current--;
+    // Decrease the length by one:
+    current--;
 
-        /*
+    /*
             [1] Save current element in stash(box).
             [2] Current element = Random element.
             [3] Random element = Get element from stash.
         */
-       // [1] Save current element in stash(box):
-        temp = array[current];
-        
-        // [2] Current element = Random element:
-        array[current] = array[random];
+    // [1] Save current element in stash(box):
+    temp = array[current];
 
-        // [3] Random element = Get element from stash:
-        array[random] = temp;
-    }
+    // [2] Current element = Random element:
+    array[current] = array[random];
 
-    return array;
+    // [3] Random element = Get element from stash:
+    array[random] = temp;
+  }
+
+  return array;
 }
-
 
 // Create Flip block function :
-function flipBlock (selectedBlock) {
-    // Add class 'is-flipped' :
-    selectedBlock.classList.add('is-flipped');
+function flipBlock(selectedBlock) {
+  // Add class 'is-flipped' :
+  selectedBlock.classList.add("is-flipped");
 
-    // Collect all Flipped cards :
-    let allFlippedBlocks = blocks.filter(flippedBlock => flippedBlock.classList.contains('is-flipped'));
+  // Collect all Flipped cards :
+  let allFlippedBlocks = blocks.filter((flippedBlock) =>
+    flippedBlock.classList.contains("is-flipped")
+  );
 
-    // Check if there is Two Selected Blocks (cards) :
-    if (allFlippedBlocks.length === 2 ) {
-        // console.log('two is selected');
+  // Check if there is Two Selected Blocks (cards) :
+  if (allFlippedBlocks.length === 2) {
+    // console.log('two is selected');
 
-        // Stop Clicking Function : 
-        stopClicking();
+    // Stop Clicking Function :
+    stopClicking();
 
-        // Ckeck Matched Blocks Function :
-        ckeckMatchedBlocks(allFlippedBlocks[0],allFlippedBlocks[1]);
-
-    }
+    // Ckeck Matched Blocks Function :
+    ckeckMatchedBlocks(allFlippedBlocks[0], allFlippedBlocks[1]);
+  }
 }
 
-// Stop Clicking Function : 
-function stopClicking () {
+// Stop Clicking Function :
+function stopClicking() {
+  // Add class 'no-clicking' on main container :
+  blocksContainer.classList.add("no-clicking");
 
-    // Add class 'no-clicking' on main container :
-    blocksContainer.classList.add('no-clicking');
-
-    // Set the Duration of no clicking :
-    setTimeout(() => {
-        // Remove class 'no-clicking' after the duration :
-        blocksContainer.classList.remove('no-clicking');
-
-    }, duration); 
+  // Set the Duration of no clicking :
+  setTimeout(() => {
+    // Remove class 'no-clicking' after the duration :
+    blocksContainer.classList.remove("no-clicking");
+  }, duration);
 }
 
 // Ckeck Matched Blocks Function :
-function ckeckMatchedBlocks (firstBlock, secondBlock) {
+function ckeckMatchedBlocks(firstBlock, secondBlock) {
+  let triesElement = document.querySelector(".tries span");
 
-    let triesElement = document.querySelector('.tries span');
-    
-    if (firstBlock.dataset.illustration ===  secondBlock.dataset.illustration) {
+  if (firstBlock.dataset.illustration === secondBlock.dataset.illustration) {
+    firstBlock.classList.remove("is-flipped");
+    secondBlock.classList.remove("is-flipped");
 
-        firstBlock.classList.remove('is-flipped');
-        secondBlock.classList.remove('is-flipped');
-   
-        firstBlock.classList.add('matched');
-        secondBlock.classList.add('matched');
+    firstBlock.classList.add("matched");
+    secondBlock.classList.add("matched");
 
-        // Audio that run on the status of success :
-        // document.getElementById('success').play();
+    // Audio that run on the status of success :
+    // document.getElementById('success').play();
+  } else {
+    triesElement.innerHTML = parseInt(triesElement.innerHTML) + 1;
 
-    } else {
-        triesElement.innerHTML = parseInt(triesElement.innerHTML) + 1;
+    setTimeout(() => {
+      firstBlock.classList.remove("is-flipped");
+      secondBlock.classList.remove("is-flipped");
+    }, duration);
 
-        setTimeout(() => {
-            firstBlock.classList.remove('is-flipped');
-            secondBlock.classList.remove('is-flipped');    
-        }, duration);
-
-        // Audio that run on the status of failure :
-        // document.getElementById('fail').play();
-    }
-      
+    // Audio that run on the status of failure :
+    // document.getElementById('fail').play();
+  }
 }
 
-///////////////////////////////////////////////////////////////// Close the Popup : 
-     document.addEventListener("click", (e) => {
+///////////////////////////////////////////////////////////////// Close the Popup :
+document.addEventListener("click", (e) => {
+  // check if the element has class name 'close button' ?
+  if (e.target.className == "close-button") {
+    // Remove the current popup :
+    e.target.parentNode.remove();
 
-        // check if the element has class name 'close button' ? 
-        if (e.target.className == 'close-button') {
-    
-            // Remove the current popup :
-            e.target.parentNode.remove();
-    
-            // Then Remove the overlay :
-            document.querySelector(".popup-overlay").remove();
-            
-            // Reload window : 
-            /* setTimeout(() => {
+    // Then Remove the overlay :
+    document.querySelector(".popup-overlay").remove();
+
+    // Reload window :
+    /* setTimeout(() => {
                 window.location.reload();
             }, 300); */
-            
-        }
-    });    
- 
-
+  }
+});
